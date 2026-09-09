@@ -64,6 +64,11 @@ Odkaz na beh je URL, ktoré **hnije**. Preto týždenná naplánovaná pipeline:
 
 ## Fáza 1 — unit testy bez náhrad *(týždne 2–4)*
 
+**Rozsah zásoby si prečítaj z `~/Cat-knowledge/measurements/` — nepamätaj si ho a neodhaduj.**
+Sú tam tri čísla: koľko je verejných metód, koľko z nich nevolá nič vonku, a koľko je
+v nich rozhodovacích vetiev. ⚠️ Je to počet **kandidátov podľa pravidla**, nie hotových
+testov — ver poradiu, nie presnému číslu.
+
 Zásoba: verejné metódy, ktoré **nevolajú nič vonku**. Nepotrebuje prostredie ani prístupy.
 
 ### Výber
