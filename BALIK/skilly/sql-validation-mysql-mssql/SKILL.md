@@ -2,28 +2,46 @@
 name: sql-validation-mysql-mssql
 description: >-
   Use when part of a system runs on MySQL and part on SQL Server — typically MySQL locally and
-  Azure SQL Server in dev/QA/prod — and something behaves differently without anything failing.
-  Symptoms: a WHERE that finds a row locally but not in QA, a name with diacritics that matches
-  on one and not the other, a duplicate check that passes in both environments while meaning
-  opposite things, an insert of a second NULL that is silently accepted locally and rejected in
-  QA, a money amount that is a cent different between environments, a paging query that runs
-  locally and errors in QA. Also for writing SQL that validates what an API actually wrote, for
-  test setup and teardown across both engines, and for migrations between them. Load it because
-  the confident answer here is usually wrong in a specific way: MEASURED, MySQL's default
-  collation is accent-INsensitive while SQL Server's default is accent-SENSITIVE, so Kovac = Kováč
-  locally and Kovac ≠ Kováč in QA; trailing spaces compare unequal on MySQL and equal on SQL
-  Server; MySQL allows many NULLs in a UNIQUE column while SQL Server allows exactly one; and
-  ROUND on a float is banker's rounding on MySQL but half-away-from-zero on SQL Server, so the
-  same float money column differs by a cent. NULL ordering and case sensitivity are NOT
-  differences here — that lore comes from SQL Server vs PostgreSQL and must not be carried over.
-  Ships a probe battery that MEASURES these on your instances and that first proves its own
-  connection is not lying. Triggers on "MySQL", "SQL Server", "Azure SQL", "collation",
-  "diacritics", "accent", "utf8mb4", "NO PAD", "UNIQUE NULL", "same query different result",
-  "works locally fails in QA", "rounding differs", "OFFSET FETCH". Do not use for SQL Server vs
+  Azure SQL Server in dev, QA and production — and something behaves differently without anything
+  failing. Symptoms: a WHERE that finds a row locally but not in QA; a name with diacritics that
+  matches on one engine and not the other; a duplicate check that passes in both environments
+  while meaning opposite things; a second NULL silently accepted locally and rejected in QA; a
+  money amount a cent different between environments; a paging query that runs locally and errors
+  in QA. Also for writing SQL that validates what an API actually wrote, for test setup and
+  teardown across both engines, and for migrations between them. Load it because the confident
+  answer here is usually wrong in a specific way, and because the differences that bite are not
+  the ones people expect: NULL ordering and case sensitivity are NOT differences here — that lore
+  comes from SQL Server versus PostgreSQL and must not be carried over. Ships a probe battery that
+  MEASURES the real differences on your own instances and that first proves its own connection is
+  not lying, because a client with the wrong charset makes the probe report the opposite of the
+  truth. Triggers on "MySQL", "SQL Server", "Azure SQL", "collation", "diacritics", "accent",
+  "utf8mb4", "NO PAD", "UNIQUE NULL", "same query different result", "works locally fails in QA",
+  "rounding differs", "OFFSET FETCH", "validate in the DB". Do not use for SQL Server versus
   PostgreSQL — that is sql-validation-mssql-pg.
 ---
 
 # Validácia dát cez SQL naprieč MySQL a SQL Serverom
+
+## Spusti — najprv sondu, potom čítaj
+
+**Nečítaj zdroj sondy. Spusti ju s `--help` a potom naostro.**
+
+```
+scripts/mysql-mssql-probe.sh mysql-docker  <kontajner> <user> <heslo> [db]
+scripts/mysql-mssql-probe.sh mssql-docker  <kontajner> <user> <heslo> [db]
+scripts/mysql-mssql-probe.sh mysql  <host> <port> <user> <heslo> [db]
+scripts/mysql-mssql-probe.sh mssql  <host,port> <user> <heslo> [db]
+```
+
+| exit | znamená |
+| :---: | --- |
+| **0** | zmerané — porovnaj oba výstupy vedľa seba |
+| **1** | spojenie nefunguje |
+| **2** | zlé argumenty *(vypíše návod)* |
+| **3** | 🔴 **SONDA NEDÔVERYHODNÁ** — klient znetvoril diakritiku. **Celý zvyšok výstupu je na zahodenie.** |
+
+**Spusti ju na OBOCH inštanciách.** Každý riadok, kde sa líšia, je miesto,
+kde tá istá query znamená niečo iné.
 
 ## Prečo vôbec siahať do databázy z testu
 
