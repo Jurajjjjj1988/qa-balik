@@ -7,14 +7,12 @@ description: >-
   matches on one engine and not the other; a duplicate check that passes in both environments
   while meaning opposite things; a second NULL silently accepted locally and rejected in QA; a
   money amount a cent different between environments; a paging query that runs locally and errors
-  in QA. Also for writing SQL that validates what an API actually wrote, for test setup and
-  teardown across both engines, and for migrations between them. Load it because the confident
+  in QA. Also for SQL that validates what an API actually wrote, and for migrations between them. Load it because the confident
   answer here is usually wrong in a specific way, and because the differences that bite are not
   the ones people expect: NULL ordering and case sensitivity are NOT differences here — that lore
   comes from SQL Server versus PostgreSQL and must not be carried over. Ships a probe battery that
   MEASURES the real differences on your own instances and that first proves its own connection is
-  not lying, because a client with the wrong charset makes the probe report the opposite of the
-  truth. Triggers on "MySQL", "SQL Server", "Azure SQL", "collation", "diacritics", "accent",
+  not lying — a client with the wrong charset reports the opposite of the truth. Triggers on "MySQL", "SQL Server", "Azure SQL", "collation", "diacritics", "accent",
   "utf8mb4", "NO PAD", "UNIQUE NULL", "same query different result", "works locally fails in QA",
   "rounding differs", "OFFSET FETCH", "validate in the DB". Do not use for SQL Server versus
   PostgreSQL — that is sql-validation-mssql-pg.

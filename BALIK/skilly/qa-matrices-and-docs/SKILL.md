@@ -6,14 +6,12 @@ description: >-
   handover document. Symptoms: every row is a tick and nothing is a hole; a percentage with no
   denominator; a table that only ever grows; cells left blank or marked N/A; traceability checked
   in one direction only; a risk matrix where probability and impact are both guesses; a report
-  whose shape changes week to week so it can be read selectively; a hand-maintained matrix that
-  drifted from the code weeks ago; a green cell that means "a link exists" rather than "a run
-  passed". Load it because these artifacts fail in one specific way: a table that cannot
+  whose shape changes week to week; a hand-maintained matrix that drifted from the code; a green
+  cell that means "a link exists" rather than "a run passed". Load it because these artifacts fail in one specific way: a table that cannot
   distinguish "checked and clean" from "never looked" is indistinguishable from a working one and
   reads as coverage. Gives a four-state model with an explicit NOT MEASURED, a sum invariant
   against an independent denominator, coverage stated as a falsifiable detection claim instead of
-  a percentage, risk ranked on two measured facts instead of two guesses, and the measured reason
-  not to colour a probability-by-impact grid at all. Triggers on "test matrix", "coverage matrix",
+  a percentage, and the measured reason not to colour a probability-by-impact grid at all. Triggers on "test matrix", "coverage matrix",
   "traceability", "RTM", "requirements to tests", "risk matrix", "test plan", "QA report", "status
   report", "handover", "test inventory", "how do we report progress". Do not use for writing the
   tests themselves — that is test-strategy or write-tests — or for the layout of a test-repo
