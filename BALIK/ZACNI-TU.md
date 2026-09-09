@@ -25,6 +25,30 @@ Ak tam ten súbor je a nie je starý, **prečítaj ho a nemeraj znova.**
 - **V chate len zhrnutie a cesta k súboru.** Najviac desať riadkov ukážky.
 - Ak výstup nie je doslovne zo skriptu, **napíš to.**
 
+## Slučka, podľa ktorej pracuješ
+
+Nie zoznam na odškrtnutie. **Každý krok má podmienku, ktorá sa nedá predstierať.**
+
+| # | krok | pustí ťa ďalej |
+| :---: | --- | --- |
+| **1** | Zisti, čo sa pýta | akceptačné kritérium je napísané **PRED** prácou |
+| **2** | Pozri, či to už nie je zmerané | vieš menovať súbor, ktorý si prečítal |
+| **3** | Zmeraj, čo chýba — **spusti, nečítaj** | existuje súbor, ktorý vie niekto zopakovať |
+| **4** | Urob najmenšiu vec, čo spĺňa kritérium | nepridal si nič navyše |
+| **5** | 🔴 **Dokáž, že to vie zlyhať** | videl si **červenú aj zelenú** |
+| **6** | Kritik — `skilly/_lib/KRITIK.md` | v texte je odlíšené ZMERANÉ / ODVODENÉ |
+| **7** | Povedz aj to, čo nevieš | vieš povedať **menovateľ** |
+
+**Krok 5 sa preskakuje najčastejšie a bez neho je zvyšok dekorácia.**
+Pri teste: **vyguti telo testovanej metódy** → musí sčervenieť → telo vráť.
+Obrátený assert **nestačí** — na `catch`-i s náhradnou hodnotou prejde.
+
+**Keď niečo nesedí, slučka sa vracia:**
+meranie odporuje zadaniu → **1** · krok 5 nesčervenal → **4** ·
+kritik našiel odvodenie vydané za fakt → **3** · nevieš menovateľa → **2**
+
+Detail a dôvody: `POSTUP.md`.
+
 ## Sedem vecí, ktoré NIKDY
 
 1. **Nemeň nič v repozitároch**, kým to výslovne nepýtam. Ani formátovanie.
