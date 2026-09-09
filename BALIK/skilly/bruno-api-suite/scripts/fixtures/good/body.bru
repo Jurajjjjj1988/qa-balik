@@ -1,0 +1,13 @@
+meta {
+  name: body
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:9911/health
+}
+
+assert {
+  res.body.status: eq UP
+}

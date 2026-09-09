@@ -1,0 +1,13 @@
+meta {
+  name: flaky
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:9911/flaky
+}
+
+assert {
+  res.status: eq 200
+}
